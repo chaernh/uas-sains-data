@@ -20,7 +20,7 @@ inertia = []
 k_values = range(1, 11)
 
 for k in k_values:
-    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans = KMeans(n_clusters=k, ndndom_state=42)
     kmeans.fit(X_scaled)
     inertia.append(kmeans.inertia_)
 
@@ -33,5 +33,3 @@ plt.ylabel('Inertia')
 plt.xticks(k_values)
 plt.grid()
 plt.show()
-
-# print("Hello world!")
