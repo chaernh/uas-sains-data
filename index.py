@@ -1,35 +1,23 @@
-import matplotlib.pyplot as plt
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
 
-# Load the dataset to check its structure
-file_path = './dataset_alfa.csv'
-data = pd.read_csv(file_path)
+# Baca dataset
+df = pd.read_csv('dataset_alfa.csv')
 
-# Display the first few rows of the dataset
-data.head(), data.info()
+# Tentukan nilai X
+X = df.iloc[:,].values
 
-# Prepare the data for clustering (use only X and Y columns)
-X = data[['X', 'Y']]
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
-
-# Determine the optimal number of clusters using the elbow method
+# Hitung inersia untuk berbagai jumlah kluster
 inertia = []
-k_values = range(1, 11)
-
-for k in k_values:
-    kmeans = KMeans(n_clusters=k, ndndom_state=42)
-    kmeans.fit(X_scaled)
+for i in range(1, 11):
+    kmeans = KMeans(n_clusters=i, random_state=42)
+    kmeans.fit(X)
     inertia.append(kmeans.inertia_)
 
-# Plot the elbow curve
-plt.figure(figsize=(8, 5))
-plt.plot(k_values, inertia, marker='o', linestyle='--', color='b')
-plt.title('Elbow Plot')
-plt.xlabel('Number of Clusters (k)')
-plt.ylabel('Inertia')
-plt.xticks(k_values)
-plt.grid()
+# Plot grafik Elbow
+plt.plot(range(1, 11), inertia, marker='o')
+plt.title('Metode Elbow')
+plt.xlabel('Jumlah Kluster')
+plt.ylabel('Inersia')
 plt.show()
